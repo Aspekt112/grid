@@ -177,11 +177,11 @@ done
 ln -sf %{_sharedstatedir}/%{name} %{buildroot}%{_datadir}/%{name}/work
 ln -sf %{_var}/log/%{name} %{buildroot}%{_sharedstatedir}/%{name}/log
 
-ln -sf %{_datadir}/%{name}/bin/control.sh        %{_bindir}/control.sh
-ln -sf %{_datadir}/%{name}/bin/igniterouter.sh   %{_bindir}/igniterouter.sh
-ln -sf %{_datadir}/%{name}/bin/ignite.sh         %{_bindir}/ignite.sh
-ln -sf %{_datadir}/%{name}/bin/ignitevisorcmd.sh %{_bindir}/ignitevisorcmd.sh
-ln -sf %{_datadir}/%{name}/bin/setup-hadoop.sh   %{_bindir}/setup-hadoop.sh
+ln -sf %{_datadir}/%{name}/bin/control.sh        %{buildroot}%{_bindir}/control.sh
+ln -sf %{_datadir}/%{name}/bin/igniterouter.sh   %{buildroot}%{_bindir}/igniterouter.sh
+ln -sf %{_datadir}/%{name}/bin/ignite.sh         %{buildroot}%{_bindir}/ignite.sh
+ln -sf %{_datadir}/%{name}/bin/ignitevisorcmd.sh %{buildroot}%{_bindir}/ignitevisorcmd.sh
+ln -sf %{_datadir}/%{name}/bin/setup-hadoop.sh   %{buildroot}%{_bindir}/setup-hadoop.sh
 
 #-------------------------------------------------------------------------------
 #
