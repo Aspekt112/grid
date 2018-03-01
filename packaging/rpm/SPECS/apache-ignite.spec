@@ -140,15 +140,18 @@ esac
 cd $(ls)
 
 # Create base directory structure
-mkdir -p %{buildroot}%{_datadir}/%{name}
-mkdir -p %{buildroot}%{_libdir}/%{name}
-mkdir -p %{buildroot}%{_datadir}/doc/%{name}-%{version}/bin
-mkdir -p %{buildroot}%{_var}/log/%{name}
-mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
-mkdir -p %{buildroot}%{_sysconfdir}/systemd/system
-mkdir -p %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_datadir}/%{name} \
+         %{buildroot}%{_libdir}/%{name} \
+         %{buildroot}%{_datadir}/doc/%{name}-%{version}/bin \
+         %{buildroot}%{_var}/log/%{name} \
+         %{buildroot}%{_sharedstatedir}/%{name} \
+         %{buildroot}%{_sysconfdir}/systemd/system \
+         %{buildroot}%{_sysconfdir}/profile.d \
+         %{buildroot}%{_bindir}
 
 # Copy nessessary files and remove *.bat files
+cp scripts/apache-ignite.sh $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d/apache-ignite.sh
+
 cp -rf benchmarks bin platforms %{buildroot}%{_datadir}/%{name}
 cp -rf docs/* examples %{buildroot}%{_datadir}/doc/%{name}-%{version}
 # mv -f %{buildroot}%{_datadir}/%{name}/bin/ignitevisorcmd.sh %{buildroot}%{_datadir}/doc/%{name}-%{version}/bin/
@@ -177,23 +180,13 @@ done
 ln -sf %{_sharedstatedir}/%{name} %{buildroot}%{_datadir}/%{name}/work
 ln -sf %{_var}/log/%{name} %{buildroot}%{_sharedstatedir}/%{name}/log
 
-ln -sf %{_datadir}/%{name}/bin/control.sh        %{buildroot}%{_bindir}/control.sh
-ln -sf %{_datadir}/%{name}/bin/igniterouter.sh   %{buildroot}%{_bindir}/igniterouter.sh
-ln -sf %{_datadir}/%{name}/bin/ignite.sh         %{buildroot}%{_bindir}/ignite.sh
-ln -sf %{_datadir}/%{name}/bin/ignitevisorcmd.sh %{buildroot}%{_bindir}/ignitevisorcmd.sh
-ln -sf %{_datadir}/%{name}/bin/setup-hadoop.sh   %{buildroot}%{_bindir}/setup-hadoop.sh
-
 #-------------------------------------------------------------------------------
 #
 # Package file list check
 #
 %files
 
-%{_bindir}/control.sh
-%{_bindir}/igniterouter.sh
-%{_bindir}/ignite.sh
-%{_bindir}/ignitevisorcmd.sh
-%{_bindir}/setup-hadoop.sh
+%attr(0644,root,root)       %{_sysconfdir}/profile.d/credulous.sh
 
 %dir %{_datadir}/%{name}
 %dir %{_sysconfdir}/%{name}
