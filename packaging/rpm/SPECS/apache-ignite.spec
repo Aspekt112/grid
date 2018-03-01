@@ -8,7 +8,7 @@
 #
 
 Name:             apache-ignite
-Version:          2.4.0
+Version:          2.3.0
 Release:          1%{?dist}
 Summary:          Apache Ignite In-Memory Computing Platform
 Group:            Development/System
@@ -39,7 +39,7 @@ consistent distributed database with powerful SQL, key-value and processing APIs
 #
 # Preinstall scripts
 # $1 can be:
-#     1 - Initial install 
+#     1 - Initial install
 #     2 - Upgrade
 #
 
@@ -151,7 +151,7 @@ mkdir -p %{buildroot}%{_bindir}
 # Copy nessessary files and remove *.bat files
 cp -rf benchmarks bin platforms %{buildroot}%{_datadir}/%{name}
 cp -rf docs/* examples %{buildroot}%{_datadir}/doc/%{name}-%{version}
-mv -f %{buildroot}%{_datadir}/%{name}/bin/ignitevisorcmd.sh %{buildroot}%{_datadir}/doc/%{name}-%{version}/bin/
+# mv -f %{buildroot}%{_datadir}/%{name}/bin/ignitevisorcmd.sh %{buildroot}%{_datadir}/doc/%{name}-%{version}/bin/
 find %{buildroot}%{_datadir}/%{name}/ -name *.bat -exec rm -rf {} \;
 
 # Copy libs to /usr/lib and map them to IGNITE_HOME
@@ -177,12 +177,24 @@ done
 ln -sf %{_sharedstatedir}/%{name} %{buildroot}%{_datadir}/%{name}/work
 ln -sf %{_var}/log/%{name} %{buildroot}%{_sharedstatedir}/%{name}/log
 
+ln -sf %{_datadir}/%{name}/bin/control.sh        %{_bindir}/control.sh
+ln -sf %{_datadir}/%{name}/bin/igniterouter.sh   %{_bindir}/igniterouter.sh
+ln -sf %{_datadir}/%{name}/bin/ignite.sh         %{_bindir}/ignite.sh
+ln -sf %{_datadir}/%{name}/bin/ignitevisorcmd.sh %{_bindir}/ignitevisorcmd.sh
+ln -sf %{_datadir}/%{name}/bin/setup-hadoop.sh   %{_bindir}/setup-hadoop.sh
 
 #-------------------------------------------------------------------------------
 #
 # Package file list check
 #
 %files
+
+%{_bindir}/control.sh
+%{_bindir}/igniterouter.sh
+%{_bindir}/ignite.sh
+%{_bindir}/ignitevisorcmd.sh
+%{_bindir}/setup-hadoop.sh
+
 %dir %{_datadir}/%{name}
 %dir %{_sysconfdir}/%{name}
 %dir %{_sharedstatedir}/%{name}
